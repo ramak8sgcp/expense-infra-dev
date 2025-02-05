@@ -15,7 +15,7 @@ variable "common_tags" {
 }
 
 variable "vastion_tags" {
-    default = {
-        Component = "bastion"
-    }
+  default = {
+    Component = "bastion"
+  }
 }
