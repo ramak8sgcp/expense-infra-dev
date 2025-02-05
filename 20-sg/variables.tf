@@ -15,43 +15,43 @@ variable "common_tags" {
 }
 
 variable "mysql_sg_tags" {
-    default = {
-        Component = "mysql"
-    }
+  default = {
+    Component = "mysql"
+  }
 }
 
 variable "backend_sg_tag" {
-    default = {
-        Component = "backend"
-    }
+  default = {
+    Component = "backend"
+  }
 }
 
 variable "frontend_sg_tag" {
-    default = {
-        Component = "frontend"
-    }
+  default = {
+    Component = "frontend"
+  }
 }
 
 variable "bastion_sg_tags" {
-    default = {
-        Component = "bastion"
-    }
+  default = {
+    Component = "bastion"
+  }
 }
 
 variable "ansible_sg_tags" {
-    default = {
-        Component = "ansible"
-    } 
+  default = {
+    Component = "ansible"
+  }
 }
 
 variable "app_alb_sg_tags" {
-    default = {
-        Component = "app-alb"
-    } 
+  default = {
+    Component = "app-alb"
+  }
 }
 
 variable "web_alb_sg_tags" {
-    default = {
-      Component = "web-alb"
-    } 
+  default = {
+    Component = "web-alb"
+  }
 }
