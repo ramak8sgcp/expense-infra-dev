@@ -15,7 +15,7 @@ variable "common_tags" {
 }
 
 variable "vpn_tags" {
-    default = {
-        Component = "vpn"
-    }
+  default = {
+    Component = "vpn"
+  }
 }
