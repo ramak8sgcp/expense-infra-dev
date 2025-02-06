@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.66.0"
+      version = "~> 5.0"
     }
   }
   # makesure we below S3 and DynamoDB should be there
