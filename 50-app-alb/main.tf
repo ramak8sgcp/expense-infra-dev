@@ -31,7 +31,7 @@ resource "aws_lb_listener" "http" {
 }
 
 module "records" {
-  source = "terraform-aws-module/route53/aws//modules/records"
+  source = "terraform-aws-modules/route53/aws//modules/records"
 
   zone_name = var.zone_name #ramana3490.online
   records = [
