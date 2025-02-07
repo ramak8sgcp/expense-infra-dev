@@ -1,7 +1,7 @@
 module "frontend" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
-  ami = data.aws_ami.joindevops.id
-  name = local.resource_name
+  source = "terraform-aws-modules/ec2-instance/aws"
+  ami    = data.aws_ami.joindevops.id
+  name   = local.resource_name
 
   instance_type          = "t3.micro"
   vpc_security_group_ids = [local.frontend_sg_id]
@@ -11,7 +11,7 @@ module "frontend" {
     var.common_tags,
     var.frontend_tags,
     {
-        Name = local.resource_name
+      Name = local.resource_name
     }
   )
 }
@@ -25,9 +25,9 @@ resource "null_resource" "frontend" {
   # Bootstrap script can run on any instance of the cluster
   # So we just choose the first in this case
   connection {
-    host = module.frontend.private_ip
-    type = "ssh"
-    user = "ec2-user"
+    host     = module.frontend.private_ip
+    type     = "ssh"
+    user     = "ec2-user"
     password = "DevOps321"
   }
 
@@ -49,13 +49,13 @@ resource "null_resource" "frontend" {
 resource "aws_ec2_instance_state" "frontend" {
   instance_id = module.frontend.id
   state       = "stopped"
-  depends_on = [null_resource.frontend]
+  depends_on  = [null_resource.frontend]
 }
 
 resource "aws_ami_from_instance" "frontend" {
   name               = local.resource_name
   source_instance_id = module.frontend.id
-  depends_on = [aws_ec2_instance_state.frontend]
+  depends_on         = [aws_ec2_instance_state.frontend]
 }
 
 resource "null_resource" "frontend_delete" {
@@ -78,24 +78,24 @@ resource "aws_lb_target_group" "frontend" {
   vpc_id   = local.vpc_id
 
   health_check {
-    healthy_threshold = 2
+    healthy_threshold   = 2
     unhealthy_threshold = 2
-    interval = 5
-    matcher = "200-299"
-    path = "/"
-    port = 80
-    protocol = "HTTP"
-    timeout = 4
+    interval            = 5
+    matcher             = "200-299"
+    path                = "/"
+    port                = 80
+    protocol            = "HTTP"
+    timeout             = 4
   }
 }
 
 resource "aws_launch_template" "frontend" {
 
-  name = local.resource_name
-  image_id = aws_ami_from_instance.frontend.id
+  name                                 = local.resource_name
+  image_id                             = aws_ami_from_instance.frontend.id
   instance_initiated_shutdown_behavior = "terminate"
-  instance_type = "t3.micro"
-  
+  instance_type                        = "t3.micro"
+
   update_default_version = true
   vpc_security_group_ids = [local.frontend_sg_id]
 
@@ -115,14 +115,14 @@ resource "aws_autoscaling_group" "frontend" {
   health_check_grace_period = 60
   health_check_type         = "ELB"
   desired_capacity          = 2 # starting of the auto scaling group
-  target_group_arns = [aws_lb_target_group.frontend.arn]
+  target_group_arns         = [aws_lb_target_group.frontend.arn]
   #force_delete              = true
   launch_template {
     id      = aws_launch_template.frontend.id
     version = "$Latest"
   }
-  
-  vpc_zone_identifier       = [local.public_subnet_id]
+
+  vpc_zone_identifier = [local.public_subnet_id]
 
   instance_refresh {
     strategy = "Rolling"
@@ -151,9 +151,9 @@ resource "aws_autoscaling_group" "frontend" {
 }
 
 resource "aws_autoscaling_policy" "example" {
-  name = local.resource_name
+  name                   = local.resource_name
   policy_type            = "TargetTrackingScaling"
-  autoscaling_group_name  = aws_autoscaling_group.frontend.name
+  autoscaling_group_name = aws_autoscaling_group.frontend.name
   target_tracking_configuration {
     predefined_metric_specification {
       predefined_metric_type = "ASGAverageCPUUtilization"
