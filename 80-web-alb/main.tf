@@ -1,5 +1,5 @@
 module "web_alb" {
-  source = "terraform-aws-module"
+  source = "terraform-aws-module/alb/aws"
 
   internal                   = false
   name                       = "${local.resource_name}-web-alb" #expense-dev-app-alb
