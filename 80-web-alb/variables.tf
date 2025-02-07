@@ -14,9 +14,9 @@ variable "common_tags" {
   }
 }
 variable "web_alb_tags" {
-    default = {
-      Component = "web-alb"
-    }
+  default = {
+    Component = "web-alb"
+  }
 }
 
 variable "zone_name" {
