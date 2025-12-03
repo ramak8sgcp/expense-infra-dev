@@ -31,7 +31,8 @@ resource "aws_lb_listener" "http" {
 }
 
 module "records" {
-  source = "terraform-aws-modules/route53/aws//modules/records"
+  source  = "terraform-aws-modules/route53/aws//modules/records"
+  version = "4.0.0"
 
   zone_name = var.zone_name #ramana3490.online
   records = [
@@ -39,7 +40,7 @@ module "records" {
       name = "*.app-${var.environment}" # *.app-dev
       type = "A"
       alias = {
-        name    = module.app_alb.db_subnet_group_name
+        name    = module.app_alb.dns_name
         zone_id = module.app_alb.zone_id # This belongs ALB internal hosted zone, not ours
       }
       allow_overwrite = true
