@@ -7,8 +7,8 @@ terraform {
   }
   # makesure we below S3 and DynamoDB should be there
   backend "s3" {
-    bucket         = "81s-remote-state-rama"
-    key            = "expense-vpc-dev"
+    bucket         = "81s-remote-state-dev-rama"
+    key            = "expense-vpc-infra-dev"
     region         = "us-east-1"
     dynamodb_table = "81s-locking"
 
