@@ -61,16 +61,17 @@ module "db" {
 }
 
 module "records" {
-  source = "terraform-aws-modules/route53/aws//modules/records"
+  source  = "terraform-aws-modules/route53/aws//modules/records"
+  version = "4.0.0"
 
-  zone_name = var.zone_name
+    zone_name = var.zone_name
 
   records = [
-
+    
     {
-      name = "mysql-${var.environment}" #mysql-dev.ramana3490.online
-      type = "CNAME"
-      ttl  = 1
+      name    = "mysql-${var.environment}" #mysql-dev.daws81s.online
+      type    = "CNAME"
+      ttl     = 1
       records = [
         module.db.db_instance_address
       ]

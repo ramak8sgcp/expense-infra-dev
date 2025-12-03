@@ -23,3 +23,10 @@ variable "rds_tags" {
 variable "zone_name" {
   default = "ramana3490.online"
 }
+
+variable "zone_id" {
+  type        = string
+  default = "Z00280343M1NSFAEBLQAW"
+  description = "Route53 Hosted Zone ID"
+}
+
