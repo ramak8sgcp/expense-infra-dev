@@ -92,7 +92,7 @@ resource "aws_lb_target_group" "backend" {
 resource "aws_launch_template" "backend" {
 
   name                                 = local.resource_name
-  image_id                             = aws_ami_from_instance.backend
+  image_id                             = aws_ami_from_instance.backend.id
   instance_initiated_shutdown_behavior = "terminate"
   instance_type                        = "t3.micro"
 
